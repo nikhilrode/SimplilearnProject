@@ -1,0 +1,165 @@
+package lockedMeSimplilearnFinalProject;
+import java.util.*;
+public class LockedMeMain
+{
+
+	public static void main(String[] args)
+	{
+		Scanner obj= new Scanner(System.in);
+		int var;
+		do {
+			LockedMeDisplay.DisplayWindow();
+			System.out.println("-:Enter your choice:-");
+			var= Integer.parseInt(obj.nextLine());
+			switch (var)
+			{
+			case 1:LockedMeDisplay.DisplayAllFile();
+			break;
+			case 2:LockedMeDisplay.AddFileInDatabase();
+			break;
+			case 3:LockedMeDisplay.DeleteFileInDatabase();
+			break;
+			case 4:LockedMeDisplay.SearchFileInDatabase();
+			break;
+			default:System.out.println("Please Enter valid ");
+			break;
+			}
+			
+
+		} while (var>0);
+		obj.next();
+		obj.close();
+
+	}
+
+}
+
+
+
+
+
+
+package lockedMeSimplilearnFinalProject;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+public class LockedMeDisplay 
+{
+    static final String projectFilePath="D:\\workspace\\LockedMeFile";
+	public static void DisplayWindow() 
+	{
+		System.out.println("***********************************************");
+		System.out.println("\t Welcome TO lockedMe");
+		System.out.println("\t(where we feel secure)");
+		System.out.println("\t Develope by : Nikhil Rode");
+		System.out.println("***********************************************");
+		System.out.println("***********        Main Menu        ***********");
+		System.out.println("***********************************************");
+		System.out.println("\t1)Display All The File");
+		System.out.println("\t2)Add File In The Database");
+		System.out.println("\t3)Delete File In The Database");
+		System.out.println("\t4)Search File In The Database");
+		System.out.println("\t5)Exit");
+		System.out.println("***********************************************");
+	}
+	public static void DisplayAllFile() 
+	{ 
+		File folder = new File(projectFilePath);
+		File[] listofFiles =folder.listFiles();
+		if (listofFiles.length>0) 
+		{
+			System.out.println("Files list is Displayed below:\n");
+			for(var l: listofFiles) 
+			{
+				System.out.println(l.getName());
+			}
+		}
+		else 
+		{
+			System.out.println("Folder is Empty");
+		}
+		
+
+	}
+	public static void AddFileInDatabase()
+	{
+		try 
+		{
+			Scanner obj=new Scanner(System.in);
+			String fileName;
+			System.out.println("Enter The File Name To Add:-");
+			fileName=obj.nextLine();
+			
+			int linecount;
+			System.out.println("Enter How Many Line In The FIle:");
+			linecount = Integer.parseInt(obj.nextLine());
+			
+			FileWriter fw= new FileWriter(projectFilePath+"\\"+fileName);
+			for (int i = 0; i <=linecount; i++) 
+			{
+				System.out.println("Please Enter The Line");
+				fw.write(obj.nextLine()+"\n");
+			}
+			System.out.println("File Created Succesfully");	
+			fw.close();
+		} catch (Exception e)
+		{
+			System.out.println("Some error occured");
+		}
+		
+			
+		}
+		
+
+	public static void DeleteFileInDatabase()
+	{
+		try
+		{
+		    Scanner obj = new Scanner(System.in);
+			String fileName;
+			System.out.println("Enter The File Name To Delete:-");
+			fileName=obj.nextLine();
+			
+			File f = new File(projectFilePath+"\\"+fileName);
+			if (f.exists()) 
+			{
+				f.delete();
+				System.out.println("File Deleted Successfully");
+			}
+			else 
+			{
+				System.out.println("File Doesn't Exist");
+			}
+		}catch (Exception e) 
+		{
+			System.out.println("Some error occured");
+		}
+	}
+	public static void SearchFileInDatabase()
+	{try
+	{
+	    Scanner obj = new Scanner(System.in);
+		String fileName;
+		System.out.println("Enter The File Name to Search:-");
+		fileName=obj.nextLine();
+		
+		File f = new File(projectFilePath+"\\"+fileName);
+		if (f.exists()) 
+		{
+			System.out.println("File is Available");
+		}
+		else 
+		{
+			System.out.println("File Doesn't Exist");
+		}
+	}catch (Exception e) 
+	{
+		System.out.println("Some error occured");
+	}
+		
+	}
+
+
+}
